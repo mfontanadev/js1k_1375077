@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<style>
+  #canv {
+	border: 1px solid #AAAAAA;
+  }
+  P.greenText {
+	font-size:10pt;
+	font-family:Calibri;
+	color:green;
+	line-height:0pt;
+  }
+  P.brownText {
+	font-size:10pt;
+	font-family:Calibri;
+	color:brown;
+	line-height:0pt;
+  }
+</style>
+
+<script>
+p=new Array();mx=0;my=0;r=1;co=0;w=0;h=0;
+function Pa(ox,oy,c,s){this.x=0;this.y=0;this.ox=ox;this.oy=oy;this.c=c;this.s=s;this.sx=0;this.sy=0;}  
+
+window.onload=function() 
+{
+a=document.getElementById('canv');
+c=a.getContext('2d');
+w=a.width;h=a.height;
+mx=w/2;my=h/2;
+a.addEventListener('mousemove', function(evt){
+ var r=a.getBoundingClientRect();mx=evt.clientX-r.left;my=evt.clientY-r.top;dx=w/2-mx;dy=h/2-my;co=Math.sqrt(dx*dx+dy*dy)/((w+h)/14);
+},false);
+ml(0); 
+an();
+};
+
+function an() 
+{
+c.clearRect(0,0,w,h);
+ml(1);
+window.setTimeout(an,16);
+}
+
+function ml(f)
+{
+for (var i=299;i>=0;i--)
+{
+if(f)
+{
+ l=p[i];l.x+=(mx-l.x)/l.s;l.y+=(my-l.y)/l.s;l.sx=Math.random();l.sy=Math.random();
+ c.beginPath();c.arc(l.x+l.ox+l.sx,l.y+l.oy+l.sy,5,0,6.28318-co);c.fillStyle=l.c;c.fill();c.strokeStyle=l.c;c.stroke();
+}
+else
+{
+ ang=(2.399*i);
+ if (!(i%5)) r+=2;
+ s=r+6;
+ pr=new Pa(Math.cos(ang)*r,Math.sin(ang)*r,'rgba('+s*2+','+s+','+s*12+','+(0.5)+')',s);p.push(pr);
+}
+}
+}
+</script>
+</head>
+<body>
+
+<div align="center">
+	<table>
+		<row><p style="font-size:13pt;font-family:Calibri;line-height:0pt;">137,5077 by Mauricio E. Fontana</p></row>
+		<row><p style="font-size:10pt;font-family:Calibri;color:green;line-height:0pt;">mfontanadev@gmail.com</p></row>
+	</table>
+</div>
+
+<div id="bottom" align="center"><canvas id="canv" width="600" height="400" ></canvas></div>
+
+<div align="center">
+	<table>
+	<row>
+		<p class="greenText">Hi, I am passionate about natural engineering. In this oportunity I want to share with you</p>
+		<p class="greenText">something like a sunflower seeds simulation, the trick is that nature use the 137,5077 angle</p>
+		<p class="greenText">to generate the most efficient arrangement of seeds AND, nature has not calculators like us.</p>
+		<p class="brownText">Enjoy it, you have it around you all the time.</p>
+	</row>
+	</table>
+</div>
+</body>
+</html>
